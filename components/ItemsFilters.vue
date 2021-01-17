@@ -2,7 +2,11 @@
     <div class="items-filters row center-xs">
         <div class="items-filters__box row center-xs">
             <!-- <button v-for="(type, key) in types" class="items-filters__button button" @click="filter = type.filter" :class="{active : filter == type.filter}"> -->
-            <button v-for="(type, key) in types" class="items-filters__button button" @click="selectedFilter(key)" :class="{active : selectFilter == type.filter}">
+            <button 
+                v-for="(type, key) in types" 
+                class="items-filters__button button" 
+                @click="selectedFilter(key)" 
+                :class="{active : selectFilter == type.filter}">
                 {{type.name}}
             </button>
         </div>
@@ -11,9 +15,6 @@
 
 <script> 
 export default {
-      props: {
-    selectFilter: String,
-  },
     data() {
         return {
             types: [
@@ -25,10 +26,9 @@ export default {
     },
     methods: {
         selectedFilter(k) {
-            this.selectFilter = this.types[k].filter;
-            // this.$emit('filterWasSelected', this.selectFilter);
-            $nuxt.$emit('filterWasSelected', this.selectFilter)
-            return this.selectFilter;
+            // this.selectFilter = this.types[k].filter;
+            this.$emit('filterWasSelected', this.types[k].filter)
+            // return this.selectFilter;
         }
     },
       computed: {

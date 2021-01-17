@@ -15,14 +15,18 @@ export default {
     .item {
         width: 161px;
         height: 270px;
+        background-color: $ds-warning;
          @include tablet-min {
-            background-image: url("~assets/images/welcome-hero_l.jpg");
-            background-position: center center;
-            justify-content: center;
+            width: 164px;
+            height: 273px;
         }
-
         @include desktop-min {
-            background-image: url("~assets/images/welcome-hero_xl.jpg");
+            width: 220px;
+            height: 353px;
+        }
+        @include desktop-air {
+            width: 296px;
+            height: 406px;
         }
     }
 
