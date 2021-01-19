@@ -1,11 +1,10 @@
-
 <template>
     <section class="task">
         <div class="container-cstm-fluid">
             <items-header />
             <items-filters @filterWasSelected="setFilter" />
-            <items-carousel :items="selectedItems"/>
-        </div>   
+        </div> 
+            <items-carousel :items="selectedItems"/>  
     </section>
 </template>
 
@@ -16,49 +15,44 @@ import ItemsFilters from '../components/ItemsFilters.vue'
 import ItemsCarousel from '../components/ItemsCarousel.vue'
     export default {
         components: { ItemsCarousel, ItemsHeader, ItemsFilters },
+
         data() {
             return {
-                filter: 'all',
                 items: [],
-                selectedItems: this.items,
-            }
-        },
-        created() { 
-            axios.get('/api/getJSON').then(res => {
-                const data = res.data.carouselData.shelf;
-                const elements = [];
-                for(let key in data) {
-                    const element = data[key];
-                    element.id = key; 
-                    elements.push(element);
-                    // elements.push(data[key])
-                }
-                this.items = elements;
-                })
-                .catch(error => console.log(error));
-        },
-        methods: {
-            fetchItems(){  
-            },
-            setFilter(value) {
-                this.filter = value;
-                // console.log(this.filter)
-                this.selectedItems = this.filterItems()
-            },
-            filterItems(){
-                const items = this.items;
-                return items.filter(item.type === this.filter);
+                filter: 'all',
             }
         },
         computed: {
-            // selectedItems() {
-            //     return this.filter === 'all' ? this.items : this.filterItems();
-            // }
-        }
+            selectedItems() {
+                return this.filter === 'all' ? this.items : this.filterItems();
+            },
+        },
+
+        created() {
+            this.fetchData()
+        },
+
+        methods: {
+            fetchData() {
+                axios.get('/api/getJSON').then(res => {
+                    const data = res.data.carouselData.shelf;
+                    this.items = data;
+                }).catch(error => console.log(error));
+            },
+            setFilter(value) {
+                this.filter = value;
+            },
+            filterItems(){
+                const items = this.items;
+                return items.filter(item => item.shelf_type === this.filter);
+            }
+        },
   }
 </script>
 <style lang="scss">
    .task {
+       height: 100vh;
+       padding: 64px 0;
        background-color: #e5e5e5;
    }
 
