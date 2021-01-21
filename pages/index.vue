@@ -4,7 +4,7 @@
             <items-header />
             <items-filters @filterWasSelected="setFilter" />
         </div> 
-            <items-carousel :items="selectedItems"/>  
+        <items-carousel :items="selectedItems"/>  
     </section>
 </template>
 
@@ -13,40 +13,33 @@ import axios from 'axios';
 import ItemsHeader from '../components/ItemsHeader.vue'
 import ItemsFilters from '../components/ItemsFilters.vue'
 import ItemsCarousel from '../components/ItemsCarousel.vue'
-    export default {
-        components: { ItemsCarousel, ItemsHeader, ItemsFilters },
-
-        data() {
-            return {
-                items: [],
-                filter: 'all',
-            }
+export default {
+    components: { ItemsCarousel, ItemsHeader, ItemsFilters },
+    data() {
+        return {
+            items: [],
+            filter: 'all',
+        }
+    },
+    computed: {
+        selectedItems() {
+            return this.filter === 'all' ? this.items : this.getFilteredItems();
         },
-        computed: {
-            selectedItems() {
-                return this.filter === 'all' ? this.items : this.filterItems();
-            },
+    },
+    async mounted() {
+        this.items = await this.fetchData();
+    },
+    methods: {
+        fetchData() {
+            return axios.get('/api/getJSON').then(res => res.data.carouselData.shelf);           
         },
-
-        created() {
-            this.fetchData()
+        setFilter(value) {
+            this.filter = value;
         },
-
-        methods: {
-            fetchData() {
-                axios.get('/api/getJSON').then(res => {
-                    const data = res.data.carouselData.shelf;
-                    this.items = data;
-                }).catch(error => console.log(error));
-            },
-            setFilter(value) {
-                this.filter = value;
-            },
-            filterItems(){
-                const items = this.items;
-                return items.filter(item => item.shelf_type === this.filter);
-            }
-        },
+        getFilteredItems() {
+            return this.items.filter(item => item.shelf_type === this.filter);
+        }
+    },
   }
 </script>
 <style lang="scss">
@@ -55,5 +48,4 @@ import ItemsCarousel from '../components/ItemsCarousel.vue'
        padding: 64px 0;
        background-color: #e5e5e5;
    }
-
 </style>

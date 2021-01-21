@@ -2,7 +2,6 @@
     <div class="items-filters">
         <div class="row center-xs">
             <div class="items-filters__box row center-xs">
-                <!-- <button v-for="(type, key) in types" class="items-filters__button button" @click="filter = type.filter" :class="{active : filter == type.filter}"> -->
                 <button 
                     v-for="(type, key) in types" 
                     class="items-filters__button button" 
@@ -18,9 +17,7 @@
                     <path d="M8 0.827735L4.83241 3.97752L8 7.12731L7.16759 7.95505L4 4.80526L0.832413 7.95505L0 7.12731L3.16759 3.97752L0 0.827735L0.832413 0L4 3.14979L7.16759 0L8 0.827735Z" fill="black"/>
                 </svg>
             </span>
-            <p class="text normal-12">Reset filter</p>
-
-
+            <p class="text normal-14">Reset filter</p>
         </button>
     </div>
 </template>
@@ -45,7 +42,6 @@ export default {
         resetFilter() {
             this.selectedFilter = 'all';
             this.$emit('filterWasSelected', this.selectedFilter)
-
         }
     },
 }
@@ -82,6 +78,13 @@ export default {
                     color: $ds-white;
                     border: 0;
                 }
+                @include tablet-min {
+                    font-size: 14px;
+                    padding: 10px 38px;
+                }
+                @include desktop-min {
+                    padding: 10px 43px;
+                }
             }
         }
         &__reset {
@@ -106,33 +109,7 @@ export default {
                 .icon {
                     transform: rotate(90deg);
                 }
-
             }
-            // &:before,
-            // &:after {
-            //     position: absolute;
-            //     // top: ;
-            //     left: -8px;
-            //     content: "";
-            //     width: 8px;
-            //     height: 1px;
-            //     background: $ds-black;
-            //     transition: all .3s;
-            // }
-            // &:before {
-            //     transform:rotate(-45deg)
-            // }
-            // &:after {
-            //     transform:rotate(45deg)
-            // }
-            // &:hover {
-            //     &:before {
-            //         transform:rotate(45deg)
-            //     }
-            //     &:after {
-            //         transform:rotate(135deg)
-            //     }
-            // }
         }
     }
 

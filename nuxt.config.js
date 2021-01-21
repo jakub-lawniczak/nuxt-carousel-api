@@ -1,5 +1,9 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
+  // target: 'server',
+  // ssr: true,
+  target: 'static',
+  ssr: false,
   head: {
     title: 'frontend-recruitment-task',
     meta: [
@@ -14,7 +18,8 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    '~assets/scss/common-design-system/ds.scss'
+    '~assets/font/font.css',
+    '~assets/scss/common-design-system/ds.scss',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
@@ -59,5 +64,6 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    publicPath: '/tylko/_nuxt/'
   }
 }
