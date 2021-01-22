@@ -1,7 +1,10 @@
 <template>
   <div class="items-carousel" :class="getCarouselClass">
     <ul class="items-carousel__list carousel" ref="flickity">
-        <li v-for="item in items" class="items-carousel__list-item carousel-cell" :key="item.img">
+        <li 
+            v-for="item in items" 
+            class="items-carousel__list-item carousel-cell" 
+            :key="item.img">
             <item :item="item" />
         </li>
     </ul>
@@ -22,12 +25,11 @@ export default {
   data() {
     return {
       flickity: null,
-      numberOfItems: '',
     }
   },
   computed: {   
     getCarouselClass() {
-      return this.numberOfItems > 4 ? 'element-full' : `element-${this.numberOfItems}`;
+      return this.items.length > 4 ? 'element-full' : `element-${this.items.length}`;
     }  
   },
    watch: {
@@ -39,7 +41,6 @@ export default {
       import('flickity').then(Flickity => {
         this.flickity = new Flickity.default(this.$refs.flickity, {groupCells: 1, pageDots: false, cellAlign: 'left',percentPosition: false, contain: true});
       });
-      this.numberOfItems = this.items.length;
     }
   },
   destroy() {
@@ -48,6 +49,8 @@ export default {
 }
 </script>
 <style lang="scss">
+$defultPadding: 16px;
+
 .carousel {
   max-width: 100%;
   overflow: hidden;
@@ -57,7 +60,6 @@ export default {
   }
 }
 .flickity-viewport {
-    padding-left: 16px;
     @include desktop-min {
       padding-left: 48px;
     }
@@ -84,13 +86,13 @@ export default {
     .items-carousel__list-item:last-of-type,
     .items-carousel__list-item:first-of-type {
       background-color: transparent;
-      width: calc(161px + (2*32px));
+      width: calc(161px + 16px);
     }
     .items-carousel__list-item:last-of-type {
-      padding-right: calc(2*32px);
+      padding-right: 16px;
     }
     .items-carousel__list-item:first-of-type {
-      padding-left: calc(2*32px);
+      padding-left: 16px;
     }
     @include tablet-min {
       .items-carousel__list-item:last-of-type,
@@ -143,8 +145,8 @@ export default {
     .items-carousel__list {
       .items-carousel__list-item:last-of-type {
         background-color: transparent;
-        width: calc(161px + (2*32px));
-        padding-right: calc(2*32px);
+        width: calc(161px + 16px);
+        padding-right: 16px;
         @include tablet-min {
           width: calc(164px + (2*64px));
           padding-right: calc(2*64px);
@@ -160,14 +162,14 @@ export default {
       }
       .items-carousel__list-item:first-of-type {
         background-color: transparent;
-        width: calc(161px + (2*32px));
+        width: calc(161px + 16px);
       }
       .items-carousel__list-item:first-of-type {
-        padding-left: calc(2*32px);
+        padding-left: calc(16px);
       }
       @include tablet-min {
         .items-carousel__list-item:first-of-type {
-          width: unset;
+          width: auto;
           padding: 0;
         }
       }

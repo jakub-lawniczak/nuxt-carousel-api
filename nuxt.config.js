@@ -1,9 +1,9 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
-  // target: 'server',
-  // ssr: true,
-  target: 'static',
-  ssr: false,
+  target: 'server',
+  ssr: true,
+  // target: 'static',
+  // ssr: false,
   head: {
     title: 'frontend-recruitment-task',
     meta: [

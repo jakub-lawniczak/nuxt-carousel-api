@@ -1,9 +1,16 @@
 <template>
-  <a :href="'/' + item.link" class="item">
+  <a :href="'https://tylko.com/' + item.link" class="item">
       <div class="item__img-hld">
         <!-- Overlay option  -->
         <!-- <div class="item__img-overlay"></div>  -->
-        <div class="item__img" :style="{ backgroundImage: `url(${imgUrl})`}"></div>
+        <!-- without SSR option  -->
+        <!-- <img :src="imgUrl" :alt="item.name" class="item__img"> -->
+        <picture>
+            <source :srcset="imgWebPUrl" type="image/webp">
+            <source :srcset="imgJpgUrl" type="image/jpeg">
+            <img :src="imgJpgUrl" class="item__img">
+        </picture>
+
       </div>
       <div class="item__data">
         <div class="item__edit-icon">
@@ -31,13 +38,23 @@ export default {
         }
     },
     computed: {
-        imgUrl() {
-            if(this.isIE11) {
-                return require(`~/assets/images/${this.item.img.replace(/^assets\/images\//, '')}`);
-            } else {
-                return require(`~/assets/images/${this.item.img_webp.replace(/^assets\/images\//, '')}`);
-            }
+        // imgUrl() {   without SSR option 
+        //     if(this.isIE11) {
+        //         return require(`~/assets/images/${this.item.img.replace(/^assets\/images\//, '')}`);
+        //     } else {
+        //         return require(`~/assets/images/${this.item.img.replace(/^assets\/images\//, '')}`);
+        //      }
+
+        // },
+        imgWebPUrl() {
+            return require(`~/assets/images/${this.item.img_webp.replace(/^assets\/images\//, '')}`);
+            
         },
+        imgJpgUrl() {
+            return require(`~/assets/images/${this.item.img.replace(/^assets\/images\//, '')}`);
+
+        },
+
     },
 }
 </script>
