@@ -1,26 +1,24 @@
 <template>
-    <div class="items-filters">
+    <div class="items-filters mb-32 pb-32">
         <div class="row center-xs">
-            <div class="items-filters__box row center-xs">
-                <!-- <button v-for="(type, key) in types" class="items-filters__button button" @click="filter = type.filter" :class="{active : filter == type.filter}"> -->
+            <div class="items-filters__box row between-xs bg-white">
                 <button 
                     v-for="(type, key) in types" 
-                    class="items-filters__button button" 
+                    class="items-filters__button button bold-12 sm:bold-14 text-offblack-600 text-center bg-white p-0"
                     @click="selectFilter(key)"
-                    :class="{active : selectedFilter === type.filter}">
+                    :class="{active : selectedFilter === type.filter}"
+                    :key="type.name">
                     {{type.name}}
                 </button>
             </div>
         </div>
-        <button class="items-filters__reset" v-show="selectedFilter !== 'all'" @click="resetFilter">
+        <button class="items-filters__reset blod-12 sm:blod-14" v-show="selectedFilter !== 'all'" @click="resetFilter">
             <span class="icon">
                 <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8 0.827735L4.83241 3.97752L8 7.12731L7.16759 7.95505L4 4.80526L0.832413 7.95505L0 7.12731L3.16759 3.97752L0 0.827735L0.832413 0L4 3.14979L7.16759 0L8 0.827735Z" fill="black"/>
                 </svg>
             </span>
-            <p class="text normal-12">Reset filter</p>
-
-
+            <p class="text normal-14">Reset filter</p>
         </button>
     </div>
 </template>
@@ -45,7 +43,6 @@ export default {
         resetFilter() {
             this.selectedFilter = 'all';
             this.$emit('filterWasSelected', this.selectedFilter)
-
         }
     },
 }
@@ -54,33 +51,44 @@ export default {
 <style lang="scss">
     .items-filters {
         position: relative;
-        margin: 32px 0;
-        padding-bottom: 32px;
         &__box {
-            background-color: $ds-white;
             border-radius: 50px;
+            width: 288px;
+            @include mobile-middle {
+                width: 459px;
+            }
+            @include tablet-min {
+                width: 519px;
+            }
         }
         &__button {
             &.button {
-                margin-right: 5px;
-                padding: 8px;
-                background-color: $ds-white;
+                display: flex;
+                justify-content: center;
+                height: 40px;
+                width: 37%;
                 border: 0;
-                font-size: 12px;
-                font-weight: $font-weight-bold;
-                color: $ds-offblack-600;
-                &:last-child {
+                border-radius: 50px;
+                font-size: 12px; // additional
+                font-weight: $font-weight-bold; //additional
+                @include tablet-min {
+                    width: 36%
+                }
+                &:last-child { 
+                    width: 26%;
                     margin-right: 0;
+                    @include tablet-min {
+                        width: 28%;
+                    }
                 }
-                &:hover {
-                    background-color: $ds-orange;
-                    border: 0;
-                    color: $ds-white;
-                }
+                &:hover,
                 &.active {
                     background-color: $ds-orange;
-                    color: $ds-white;
                     border: 0;
+                    color: $ds-offwhite-600;
+                }
+                @include mobile-middle  {
+                    font-size: 14px;
                 }
             }
         }
@@ -106,33 +114,7 @@ export default {
                 .icon {
                     transform: rotate(90deg);
                 }
-
             }
-            // &:before,
-            // &:after {
-            //     position: absolute;
-            //     // top: ;
-            //     left: -8px;
-            //     content: "";
-            //     width: 8px;
-            //     height: 1px;
-            //     background: $ds-black;
-            //     transition: all .3s;
-            // }
-            // &:before {
-            //     transform:rotate(-45deg)
-            // }
-            // &:after {
-            //     transform:rotate(45deg)
-            // }
-            // &:hover {
-            //     &:before {
-            //         transform:rotate(45deg)
-            //     }
-            //     &:after {
-            //         transform:rotate(135deg)
-            //     }
-            // }
         }
     }
 
