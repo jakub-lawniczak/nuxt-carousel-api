@@ -1,7 +1,7 @@
 <template>
     <div class="items-filters mb-32 pb-32">
         <div class="row center-xs">
-            <div class="items-filters__box row between-xs bg-white">
+            <div class="items-filters__box row between-xs bg-white mx-4">
                 <button 
                     v-for="(type, key) in types" 
                     class="items-filters__button button bold-12 sm:bold-14 text-offblack-600 text-center bg-white p-0"
